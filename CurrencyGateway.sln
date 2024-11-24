@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35431.28
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyGateway.Server", "CurrencyGateway.Server\CurrencyGateway.Server.csproj", "{78037578-F372-402D-A2C3-414A573B9158}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "currencygateway.client", "currencygateway.client\currencygateway.client.esproj", "{1B6A4CCC-22DA-4310-A95C-8EBF5487498C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyExchange.Test", "CurrencyExchange.Test\CurrencyExchange.Test.csproj", "{10505BBF-B35D-4B80-BCA0-2D1E18AC202C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{78037578-F372-402D-A2C3-414A573B9158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78037578-F372-402D-A2C3-414A573B9158}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78037578-F372-402D-A2C3-414A573B9158}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78037578-F372-402D-A2C3-414A573B9158}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B6A4CCC-22DA-4310-A95C-8EBF5487498C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B6A4CCC-22DA-4310-A95C-8EBF5487498C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B6A4CCC-22DA-4310-A95C-8EBF5487498C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1B6A4CCC-22DA-4310-A95C-8EBF5487498C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B6A4CCC-22DA-4310-A95C-8EBF5487498C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B6A4CCC-22DA-4310-A95C-8EBF5487498C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{10505BBF-B35D-4B80-BCA0-2D1E18AC202C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10505BBF-B35D-4B80-BCA0-2D1E18AC202C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10505BBF-B35D-4B80-BCA0-2D1E18AC202C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10505BBF-B35D-4B80-BCA0-2D1E18AC202C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {85670B2C-5C5A-44C4-AC99-9D69175778FD}
+	EndGlobalSection
+EndGlobal

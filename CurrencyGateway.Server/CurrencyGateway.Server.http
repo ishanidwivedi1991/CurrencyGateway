@@ -1,0 +1,14 @@
+@CurrencyGateway.Server_HostAddress = https://localhost:7181
+
+GET {{CurrencyGateway.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{CurrencyGateway.Server_HostAddress}}/api/currencyexchange/rates
+
+###
+
+GET {{CurrencyGateway.Server_HostAddress}}/api/currencyexchange/ratesbycurrency?basecurrency=INR
+
+###
