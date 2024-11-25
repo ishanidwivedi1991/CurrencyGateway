@@ -8,23 +8,30 @@ namespace CurrencyGateway.Server.Controllers
     public class CurrencyExchangeController : ControllerBase
     {
         private readonly IHttpClientFactory _httpClient;
+        private readonly ILogger<CurrencyExchangeController> _logger;
 
-        public CurrencyExchangeController(IHttpClientFactory httpClient)
+        public CurrencyExchangeController(IHttpClientFactory httpClient,
+            ILogger<CurrencyExchangeController> logger)
         {
             _httpClient = httpClient;
+            _logger = logger;
         }
 
         [HttpGet("rates")]
-        [ResponseCache(Duration =30)]
+        [ResponseCache(Duration =20)]
         public async Task<IActionResult> GetExchangeRates()
         {
             try
             {
+                _logger.LogInformation("Creating HttpClient.");
                 var client = _httpClient.CreateClient("currencyexchange");
-                var response = await client.GetAsync("latest");
 
+                _logger.LogInformation("Sending request to API");
+                var response = await client.GetAsync("latest");
+                
                 if (!response.IsSuccessStatusCode)
                 {
+                    _logger.LogInformation("Response error code: {0}", (int)response.StatusCode);
                     return StatusCode((int)response.StatusCode, "Error fetching exchange rates.");
                 }
 
@@ -33,21 +40,26 @@ namespace CurrencyGateway.Server.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError( "There is an error: {0}", ex.Message);
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
 
         [HttpGet("ratesbycurrency")]
-        [ResponseCache(Duration = 30)]
+        [ResponseCache(Duration = 20)]
         public async Task<IActionResult> GetExchangeRates(string basecurrency)
         {
             try
             {
-                var client = _httpClient.CreateClient("currencyexchange");                
+                _logger.LogInformation("Creating HttpClient.");
+                var client = _httpClient.CreateClient("currencyexchange");
+
+                _logger.LogInformation("Sending request to API");
                 var response = await client.GetAsync(String.Concat("latest?base=",basecurrency));
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    _logger.LogInformation("Response error code: {0}", (int)response.StatusCode);
                     return StatusCode((int)response.StatusCode, "Error fetching exchange rates.");
                 }
 
@@ -56,6 +68,7 @@ namespace CurrencyGateway.Server.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError("There is an error: {0}", ex.Message);
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }

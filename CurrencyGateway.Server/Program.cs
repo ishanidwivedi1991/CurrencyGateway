@@ -1,4 +1,5 @@
 using CurrencyGateway.Server.Controllers;
+using NLog.Web;
 
 namespace CurrencyGateway.Server
 {
@@ -6,40 +7,54 @@ namespace CurrencyGateway.Server
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-
-            builder.Services.AddControllers();
-            builder.Services.AddHttpClient("currencyexchange", options => { options.BaseAddress = new Uri("https://api.fxratesapi.com/latest"); } );
-            builder.Services.AddCors(options =>
+            var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+            try
             {
-                options.AddDefaultPolicy(
-                    policy =>
-                    {
-                        policy.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader();
-                    });
-            });
+                logger.Debug("Application starting...");
+                var builder = WebApplication.CreateBuilder(args);
 
-            var app = builder.Build();
+                // Add services to the container.
 
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
+                builder.Services.AddControllers();
+                builder.Services.AddHttpClient("currencyexchange", options => { options.BaseAddress = new Uri("https://api.fxratesapi.com/latest"); });
+                builder.Services.AddCors(options =>
+                {
+                    options.AddDefaultPolicy(
+                        policy =>
+                        {
+                            policy.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                        });
+                });
 
-            // Configure the HTTP request pipeline.
-            app.UseCors();
-            app.UseHttpsRedirection();
+                var app = builder.Build();
 
-            app.UseAuthorization();
+                app.UseDefaultFiles();
+                app.UseStaticFiles();
+
+                // Configure the HTTP request pipeline.
+                app.UseCors();
+                app.UseHttpsRedirection();
+
+                app.UseAuthorization();
 
 
-            app.MapControllers();
+                app.MapControllers();
 
-            app.MapFallbackToFile("/index.html");
+                app.MapFallbackToFile("/index.html");
 
-            app.Run();
+                app.Run();
+            }
+            catch (Exception exception)
+            {
+                logger.Error(exception, "Application stopped due to an exception");
+                throw;
+            }
+            finally
+            {
+                NLog.LogManager.Shutdown();
+            }
         }
     }
 }

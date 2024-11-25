@@ -2,78 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../App.css';
 
-//const App = () => {
-//    const [exchangeRates, setExchangeRates] = useState([]);
-//    const [error, setError] = useState(null);
-//    const [prevRates, setPrevRates] = useState({});
-
-//    useEffect(() => {
-//        const fetchData = async () => {
-//            try {
-//                const response = await axios.get('https://localhost:7181/api/currencyexchange/rates');
-//                const rates = response.data.rates;
-//                const rateArray = Object.entries(rates).map(([currency, rate]) => ({
-//                    currency,
-//                    rate,
-//                }));
-//                setExchangeRates(rateArray);
-//            } catch (err) {
-//                setError('Failed to fetch exchange rates.');
-//            }
-//        };
-
-//        fetchData();
-//        const interval = setInterval(fetchData, 30000); // Update every 30 seconds
-//        return () => clearInterval(interval);
-//    }, []);
-
-//    useEffect(() => {
-//        if (exchangeRates.length) {
-//            setPrevRates(
-//                exchangeRates.reduce((acc, { currency, rate }) => {
-//                    acc[currency] = rate;
-//                    return acc;
-//                }, {})
-//            );
-//        }
-//    }, [exchangeRates]);
-
-//    const getRowClass = (currency, rate) => {
-//        if (!prevRates[currency]) return '';
-//        if (rate > prevRates[currency]) return 'positive'; // Rate has increased
-//        if (rate < prevRates[currency]) return 'negative'; // Rate has decreased
-//        return ''; // Rate is unchanged
-//    };
-
-//    return (
-//        <div className="App">
-//            <h1>Currency Exchange Rates</h1>
-//            {error ? (
-//                <p>{error}</p>
-//            ) : (
-//                <table>
-//                    <thead>
-//                        <tr>
-//                            <th>Currency</th>
-//                            <th>Rate</th>
-//                        </tr>
-//                    </thead>
-//                    <tbody>
-//                        {exchangeRates.map(({ currency, rate }) => (
-//                            <tr key={currency} className={getRowClass(currency, rate)}>
-//                                <td>{currency}</td>
-//                                <td>{rate}</td>
-//                            </tr>
-//                        ))}
-//                    </tbody>
-//                </table>
-//            )}
-//        </div>
-//    );
-//};
-
-//export default App;
-
 const API_URL = "https://localhost:7181/api/currencyexchange/rates";
 
 const CurrencyExchangeApp = () => {
@@ -92,6 +20,7 @@ const CurrencyExchangeApp = () => {
 
             // Update previous rates before setting new ones
             setPrevRates(exchangeRates);
+            //setPrevRates((currentRates) => ({ ...currentRates, ...exchangeRates }));
             setExchangeRates(data.rates);
         } catch (err) {
             setError(err.message);

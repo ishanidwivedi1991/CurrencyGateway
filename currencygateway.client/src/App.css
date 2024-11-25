@@ -1,24 +1,4 @@
-﻿/*#root {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
-}
-
-th, td {
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
-
-.positive {
-    background-color: #007700;
-}
-
-.negative {
-    background-color: #ff0000;
-}*/
-
-body {
+﻿body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -48,11 +28,11 @@ th {
 }
 
 tr.positive {
-    background-color: #d4edda; /* Green for rising rates */
+    background-color: #006b00; /* Green for rising rates */
 }
 
 tr.negative {
-    background-color: #f8d7da; /* Red for falling rates */
+    background-color: #ff3f00; /* Red for falling rates */
 }
 
 .error {
