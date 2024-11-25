@@ -1,11 +1,11 @@
 using CurrencyGateway.Server.Controllers;
 using CurrencyGateway.Server.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Moq.Protected;
 using Newtonsoft.Json;
 using System.Net;
-using System.Net.Http;
 
 namespace CurrencyExchange.Test
 {
@@ -14,18 +14,21 @@ namespace CurrencyExchange.Test
         public class CurrencyExchangeControllerTests
         {
             private readonly Mock<HttpMessageHandler> _mockHttpMessageHandler;
-            private readonly Mock<IHttpClientFactory> mockFactory;
+            private readonly Mock<IHttpClientFactory> _mockFactory;
+            private readonly Mock<ILogger<CurrencyExchangeController>> _mockLog;
             private readonly HttpClient _httpClient;
             private readonly CurrencyExchangeController _currencyController;
 
             public CurrencyExchangeControllerTests()
             {
                 _mockHttpMessageHandler = new Mock<HttpMessageHandler>(MockBehavior.Strict);
-                mockFactory = new Mock<IHttpClientFactory>();
+                _mockFactory = new Mock<IHttpClientFactory>();
                 _httpClient = new HttpClient(_mockHttpMessageHandler.Object)
                 { BaseAddress = new Uri("https://api.fxratesapi.com/latest") };
-                mockFactory.Setup(_ => _.CreateClient("currencyexchange")).Returns(_httpClient);
-                _currencyController = new CurrencyExchangeController(mockFactory.Object);
+                _mockFactory.Setup(_ => _.CreateClient("currencyexchange")).Returns(_httpClient);
+                _mockLog = new Mock<ILogger<CurrencyExchangeController>>();
+
+                _currencyController = new CurrencyExchangeController(_mockFactory.Object, _mockLog.Object);
             }
 
             [Fact]

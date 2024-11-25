@@ -19,8 +19,8 @@ const CurrencyExchangeApp = () => {
             const data = await response.json();
 
             // Update previous rates before setting new ones
-            setPrevRates(exchangeRates);
-            //setPrevRates((currentRates) => ({ ...currentRates, ...exchangeRates }));
+            //setPrevRates(exchangeRates);
+            setPrevRates((currentRates) => ({ ...currentRates, ...exchangeRates }));
             setExchangeRates(data.rates);
         } catch (err) {
             setError(err.message);
@@ -31,7 +31,7 @@ const CurrencyExchangeApp = () => {
     useEffect(() => {
         fetchExchangeRates();
         const interval = setInterval(fetchExchangeRates, 30000); // Fetch every 30 seconds
-        return () => clearInterval(interval); // Cleanup interval on component unmount
+        return () => clearInterval(interval); 
     }, []);
 
     // Function to determine row class based on rate changes
